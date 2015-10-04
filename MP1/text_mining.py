@@ -3,12 +3,18 @@ This script uses Pattern and Twitter API to collect tweets about presidential ca
 by Ziyu (Selina) Wang
 last modified: September 28, 2015
 '''
+
 from pattern.web import *	# Importing Patern to be utilized later
+
 # Creating a list with all the candidates names
+# Make sure to remove commented-out code! (next line)
 #candidates = ['HillaryClinton','DonaldTrump','BernieSanders','BenCarson','JebBush','TedCruz','MarcoRubio','RandPaul','CarlyFiorina','JohnKasich',"MartinO'Malley",'ChrisChristie','JimWebb','JillStein','RickSantorum','BobbyJindal','LincolnChafee','LindseyGraham','GeorgePataki','JimGilmore','MikeHuckabee','ScottWalker']
 candidates = ['GeorgePataki','JimWebb',"MartinO'Malley",'ChrisChristie','JimGilmore','LindseyGraham','LincolnChafee','BobbyJindal','RickSantorum','JillStein']
 # Creating a list with all the candidates names in reversed order (in case we need to traverse the original list backwards to collect data for all the candidates)
+# You can also do candidates.reverse() -> reverses candidates in place
+# ...but, actually, do you ever use reversedCandidates?
 reversedCandidates = list(reversed(candidates))
+
 # Traverse through the list
 for candidate in candidates:
 # for candidate in reversedCandidates:	# swap with the last line when traversing the original list backwards
@@ -17,13 +23,16 @@ for candidate in candidates:
 		file = open(fileName,'a')   # Trying to create a new file or open an existing one
 	except:
 		print('Cannot create/open the file')	# If failed to create/open one, through an exception
+
 	s = Twitter().stream(candidate)	# using Pattern and Twitter API to collect tweets about the candidate
 	print candidate
 	# Storing the tweets in the past 30 seconds into the plain text file
 	for i in range(30):	# If there are tweets in the stream
 		time.sleep(1)
+		# I haven't been able to run your code without hitting the Twitter rate
+		# limit on this line -- probably a Pattern thing, not you
 		s.update(bytes=1024)
-		if s:	
+		if s:
 			try:
 				file.write(s[-1].text+'\n')
 				print s[-1].text
@@ -31,3 +40,4 @@ for candidate in candidates:
 				pass	# The tweet did not have text in it so skip to the next one
 	file.close()	# Close the .txt file to clean up
 
+# It's good to use blank lines to space out your code -- makes it more readable!

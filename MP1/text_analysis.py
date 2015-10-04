@@ -3,15 +3,24 @@ This script uses Pattern's sentiment analysis to find the average polarity and s
 by Ziyu (Selina) Wang
 last modified: September 28, 2015
 '''
+
+# The comment on the next line doesn't add any information -- when you're
+# writing documentation, try to say as little as you need to for your code
+# to be understandable
 from pattern.en import *	# Importing Patern to be utilized later
+
 # Creating a list with all the candidates names
 candidates = ['HillaryClinton','DonaldTrump','BernieSanders','BenCarson','JebBush','TedCruz','MarcoRubio','MikeHuckabee','RandPaul','CarlyFiorina','ScottWalker','JohnKasich',"MartinO'Malley",'ChrisChristie','JimWebb','RickSantorum','BobbyJindal','LincolnChafee','LindseyGraham','GeorgePataki','JimGilmore','JillStein']
-# Traverse through the list
+
+# Traverse through the list <- again, not a useful comment -- the next line
+# tells me you're traversing through the list. Better to document _why_ you're
+# traversing through the list
 for candidate in candidates:
 	# Creating three lists for storing data from the sentiment analysis
 	analysis = []
 	polarity = []
 	subjectivity = []
+
 	try:
 		with open(candidate+'.txt', 'r') as f1: # Trying to open the .txt file with all the tweets in it
 			# Traverse through the file line by line
@@ -23,9 +32,12 @@ for candidate in candidates:
 				subjectivity.append(data[1])
 	except:
 		print 'Running analysis failed'	# Throw an error if the analysis failed to execute
+
 	if analysis:	# if the analysis was succesful
 		# Calculating and displaying the number tweets collected
 		numberOfTweets = len(analysis)
+		# Check out string interpolation: the following two lines do the same thing
+		# print "Number of tweets about %s: %s" % (candidate, numberOfTweets)
 		print "Number of tweets about " + candidate + ': ' + str(numberOfTweets)
 		# Calculating and displaying the average polarity
 		averagePolarity = sum(polarity)/len(polarity)
@@ -35,6 +47,5 @@ for candidate in candidates:
 		print candidate + "'s average subjectivity: " + str(averageSubjectivity)
 	else:	# If there are no tweets about a candidate, display this information
 		print 'There is no tweets about ' + candidate + ' collected'
+
 	f1.close();	# Close the .txt file to clean up
-
-
