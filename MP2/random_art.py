@@ -17,8 +17,17 @@ def build_random_function(min_depth, max_depth):
 	# inputs: min_depth (int), minimum amount of nesting
 	#         max_depth (int), maximum amount of nesting
 	# output: func (nested lis), generated function
-	
+
+	# ^^ Great input/output specification!
+  # You can put these straight into the docstring (enclosed in triple quotes ""
+  # Better to pick one type of comment and stick with it than to use both
+
 	depth = randint(min_depth,max_depth)
+
+
+  # vv I think it's faster/uses less memory to declare random_function outside
+  # of build_random_function -- you can still use it inside build_random_function
+  # exactly as you are now
 
 	def random_function(number):
 		# Once reach depth = 1, return a variable
@@ -46,7 +55,7 @@ def build_random_function(min_depth, max_depth):
 		elif rand_func == 8:
 			return ['x',random_function(number-1),random_function(number-1)]
 		elif rand_func == 9:
-			return ['y',random_function(number-1),random_function(number-1)]	
+			return ['y',random_function(number-1),random_function(number-1)]
 
 	func = random_function(depth)
 	return func
@@ -96,9 +105,9 @@ def remap_interval(val, input_interval_start, input_interval_end, output_interva
 	""" Maps the input value (int/float) that is in the interval [input_interval_start (int), input_interval_end (int)]
 		to the output interval [output_interval_start (int), output_interval_end (int)].  The mapping
 		is an affine one (i.e. output = input*c + b).
-		Output: (int/float) 
+		Output: (int/float)
 	"""
- 
+
 	input_range = input_interval_end - input_interval_start
 	output_range = output_interval_end - output_interval_start
 	ratio = (val-input_interval_start) / float(input_range)
