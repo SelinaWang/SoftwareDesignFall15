@@ -2,9 +2,6 @@
 	Project Gutenberg """
 
 import string
-#from pattern.web import *
-
-#sherlock = URL('http://www.gutenberg.org/cache/epub/1661/pg1661.txt').download()
 
 def get_word_list(file_name):
 	""" Reads the specified project Gutenberg book.  Header comments,
