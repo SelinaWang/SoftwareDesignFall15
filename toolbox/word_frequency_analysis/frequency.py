@@ -21,7 +21,7 @@ def get_word_list(file_name):
 	while lines[end_line].find('END OF THIS PROJECT GUTENBERG EBOOK') == -1:
 		end_line += 1
 	lines = lines[header_line+1:end_line-1]
-	
+
 	# Get rid of all the non-text stuff
 	for line in lines:
 		# replace non-text with spaces before splitting
@@ -29,6 +29,7 @@ def get_word_list(file_name):
 			line = line.replace(str(val), ' ')
 		line = line.lower()
 		line = line.split()
+    # You can also chain these methods together: line = line.lower().split()
 		for word in line:
 			word_list.append(word)
 	print "Total number of words: " + str(len(word_list))
@@ -56,6 +57,7 @@ def get_top_n_words(word_list, n):
 	ordered_by_frequency = sorted(word_counts, key=word_counts.get, reverse=True)
 
 	return ordered_by_frequency[0:n]
+  # You can also use ordered_by_frequency[:n]
 
 if __name__ == '__main__':
 	word_list = get_word_list('sherlock.txt')
