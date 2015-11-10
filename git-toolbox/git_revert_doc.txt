@@ -1,0 +1,9 @@
+Revert
+
+command: git revert <commit checksum>
+
+What it does: Generate a new commit that undoes all of the changes introduced in <commit checksum>, then apply it to the current branch.
+
+Revert vs Reset: git revert undoes a single commit; git reset resets back to the previous state of a project by removing all subsequent commits.
+
+Practice: Reverted the most recent commt ("Added doc string") and applied the new commit
