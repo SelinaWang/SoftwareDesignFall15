@@ -14,6 +14,7 @@ import time
 class SwimFishModel:
     """ Encodes the game state """
     def __init__(self):
+        # Again -- would be nice to parameterize initial fish position to depend on size of screen
         self.fish = Fish((209, 95, 238), 60, 50, 200, 450)
         self.monsters = []
         self.choices = ['images/octopus1_png.png', 'images/crab1.png', 'images/jellyfish.png', 'images/shark.png', 'images/stingray.png']
@@ -29,7 +30,7 @@ class Monster:
         self.y = y
         #Adjust the positions of rectangles surrounding the monsters to give a smoother game play experience
         self.rect = pygame.Rect(x+60,y,width,height)
-        
+
     def move_monster(self):
         """ Describes how the monsters and their encapsulating rectangles move """
         # choose to move left or right
@@ -37,10 +38,11 @@ class Monster:
         screen_width_sections = 10
         self.x = self.x + (new_pose*screen_width_sections)
         self.rect.x = self.x
+
         # move down
-        screen_height_sections = 60 
+        screen_height_sections = 60
         height_pixel = 480/screen_height_sections # 480 is the total height of the screen set in the execution program
-        self.y = self.y + height_pixel    
+        self.y = self.y + height_pixel
         self.rect.y = self.y
 
 class Fish:

@@ -13,7 +13,9 @@ from sfmodel import *
 from sfview import *
 from random import randint
 import time
-    
+
+# This is a substantial ifmain, and a good deal of it could belong to the model
+# Might be worth refactoring
 if __name__ == '__main__':
     pygame.init()
     # Define screen size and initialize it
@@ -30,6 +32,7 @@ if __name__ == '__main__':
     controller = SwimFishMouseController(model, view)
 
     # Variables to keep track of the game state
+    # These could all belong to the model...
     running = True
     playing = True
     eaten = False
@@ -57,10 +60,12 @@ if __name__ == '__main__':
                         pygame.quit()
                 elif event.type == MOUSEMOTION:
                     controller.handle_mouse_event(event)
+
             #control the monsters' spawning
             #the speed at which they spawn is inversely proportional to the level
-            if now - last_monster_spawn >= 50.0/(2*level+10):
+            if now - last_monster_spawn >= 50.0/(2*level+10): # why this math? Handle in the model?
                 last_monster_spawn = now
+                # Could abstract more of this away into the model
                 #spawn the monsters at random places
                 range_left = randint(75,200)
                 range_right = randint(450,550)
@@ -69,14 +74,17 @@ if __name__ == '__main__':
                     choice = model.choices[randint(0, 4)]
                     monster = Monster(90, 90, choice, x, -100)
                     model.monsters.append(monster)
+
             #control the monsters' movements
             #the speed at which they move is inversely proportional to the level
-            if now - time_since_last_movement >= 10.0/(5*level+60):
-                time_since_last_movement = now 
+            if now - time_since_last_movement >= 10.0/(5*level+60): # again, why this math?
+                time_since_last_movement = now
+                # again, could abstract away into the models -- write a model.move_monsters()
                 for monster in model.monsters:
                     monster.move_monster()
+
             view.draw()
-            
+
             if (controller.handle_collision()):
                 eaten = True
                 init = time.time()
@@ -86,7 +94,7 @@ if __name__ == '__main__':
                 view.level_up()
                 time.sleep(3)
                 model.monsters = []
-                # counter = 0
+                # counter = 0 << remove dead code
                 init = time.time()
             time.sleep(0.01)
 

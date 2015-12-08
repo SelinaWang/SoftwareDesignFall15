@@ -17,24 +17,32 @@ class SwimFishView:
         self.screen = screen
 
     def draw(self):
-        ocean_floor = pygame.image.load('images/ocean.jpg') 
+        ocean_floor = pygame.image.load('images/ocean.jpg')
         self.screen.blit(ocean_floor,(0,0))
         # Draws the fish
         points = []
         points.append((self.model.fish.x,self.model.fish.y))
         points.append((self.model.fish.x-20,self.model.fish.y+45))
         points.append((self.model.fish.x+20,self.model.fish.y+45))
+        # Could you store the fish's color as a pygame Color instead of making the color every time you draw the fish?
         pygame.draw.polygon(self.screen, pygame.Color(self.model.fish.color[0],self.model.fish.color[1],self.model.fish.color[2]),points,0)
         pygame.draw.ellipse(self.screen, pygame.Color(self.model.fish.color[0],self.model.fish.color[1],self.model.fish.color[2]),
         pygame.Rect(self.model.fish.x-self.model.fish.width/2,self.model.fish.y-self.model.fish.height/2,self.model.fish.width,self.model.fish.height),0)
         pygame.draw.circle(self.screen, (0,20,20),(int(self.model.fish.x+self.model.fish.width*0.25),int(self.model.fish.y-self.model.fish.width*0.25)),4,0)
+
         # Draws the monsters
         for monster in self.model.monsters:
             self.screen.blit(monster.scale,((int(monster.x)),int(monster.y)))
+
         pygame.display.update()
 
 
     def init_screen(self):
+        # Would be nice if you parameterized the "magic numbers" you're using for positioning
+        # to depend on screen size -- good practice to make your code easy to modify
+
+        # Could also store colors with nice variable names (e.g. init_screen_color) as properties of
+        # the SwimFishView class -- would make the next couple methods much easier to read
         pygame.draw.rect(self.screen, (154,255,154),(0,0,640,480),0)
         myfont = pygame.font.SysFont("monospace", 30)
         welcome = myfont.render("WELCOME TO SWIM LITTLE FISH SWIM!", 1, (47,79,79))
